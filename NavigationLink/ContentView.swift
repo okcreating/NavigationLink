@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isShowingDetailView = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            VStack(spacing: 30) {
+                NavigationLink(destination: Text("Second View"), isActive: $isShowingDetailView)  { EmptyView() }
+
+                Button("Tap for detail") {
+                    isShowingDetailView = true
+                    // if we need ti hide it later and return to the main view
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        isShowingDetailView = false
+                    }
+                }
+            }
+            .navigationTitle("Navigation")
         }
-        .padding()
     }
 }
 
